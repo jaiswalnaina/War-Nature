@@ -110,7 +110,7 @@ function displayPopup(dot) {
     stroke(0);
     strokeWeight(1);
     // Add background color, rounded corners, and drop shadow
-    let popupWidth = textWidth(`Displacements: ${dot.label}`) + popupPaddingX;
+    let popupWidth = textWidth(`Children Displaced: ${dot.label}`) + popupPaddingX;
     let popupHeight = textAscent() * 3 + popupPaddingY;
     let borderRadius = 10;
     let shadowDistance = 0;
@@ -157,5 +157,5 @@ function displayPopup(dot) {
     // Display additional information
     text(`Hazard Type: ${dot.label}`, mouseX + 20, mouseY - popupHeight + 50);
     text(`Year: ${dot.year}`, mouseX + 20, mouseY - popupHeight + 80);
-    text(`Displacements: ${dot.raw}`, mouseX + 20, mouseY - popupHeight + 110);
+    text(`Children Displaced: ${dot.raw}`, mouseX + 20, mouseY - popupHeight + 110);
   }
