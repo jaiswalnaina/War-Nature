@@ -13,11 +13,11 @@ function setup() {
   createCanvas(windowWidth * 4.9 / 6, windowHeight);
   frameRate(60);
 
-  let title = createP('Navigating New Realities: Showing Children Displaced by Climate Change');
+  let title = createP('Navigating New Realities: Showing Children Displaced due to Climate Change');
   title.style('font-size', '30px');
   title.style('text-align', 'center');
   title.style('color', '#f8fafa');
-  title.style('font-family', 'Helvetica, sans-serif'); // Set the title color to white
+  title.style('font-family', 'Lato, sans-serif'); // Set the title color to white
   title.position(width / 3, titleHeight / 4);
 
   // Create a maximum of 100 dots based on data
@@ -90,7 +90,7 @@ class Dot {
       this.textContainer.style('font-size', '18px');
       this.textContainer.style('text-align', 'left');
       this.textContainer.style('color', '#f8fafa'); 
-      this.textContainer.style('font-family', 'Helvetica, sans-serif');// Change the text color to red
+      this.textContainer.style('font-family', 'Lato, sans-serif');// Change the text color to red
 
       for (let column in this.rowData.obj) {
         let p = createP(`${column}: ${this.rowData.getString(column)}`);
