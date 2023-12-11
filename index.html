@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+  </head>
   <style>
     body {
       margin: 0;
@@ -12,28 +13,37 @@
       justify-content: center;
       height: 100vh;
       background-color: #00072d;
+      overflow-y: scroll; /* Allow vertical scrolling */
     }
+
     #banner {
       position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
-      padding: 100px;
-      background-color: #6b0617; /* Choose your banner color */
-      color: #ffffff; /* Choose your text color */
+      width: 100vw; /* Fix the typo here */
+      padding: 0%;
+      background-color: #ffffff; /* Choose your banner color */
+      color: #982f2f; /* Choose your text color */
       text-align: center;
       z-index: 1; /* Ensure the banner is above the canvas */
+      pointer-events: none; /* Allow mouse events to pass through */
     }
-  </style>
-  <script defer src="viz.js"></script>
-</head>
 
+    #p5-canvas {
+      position: relative; /* Ensure the canvas is positioned correctly */
+      z-index: 2; /* Ensure the canvas is above the banner */
+    }
+
+    #banner img {
+      max-width: 100%;
+      height: auto;
+    }
+    #p5-canvas canvas {
+  display: block; /* Ensure canvas is a block element */
+    }
+    
+  </style>
 <body>
-  <body>
-    <div id="banner">
-      <h1>Children Displacements due to Climate Change</h1>
-      <p>Your banner content goes here.</p>
-    </div>
-  
+  <div id="p5-canvas"></div>  <script defer src="viz.js"></script>
 </body>
 </html>

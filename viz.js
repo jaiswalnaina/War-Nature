@@ -1,13 +1,17 @@
 let dots = [];
 const numDots = 700;
-const dotSize = 20;
-const colors = ['#edcabe', '#f7d6c9', '#d38f8f', '#445174', '#b6e3e0'];
+const dotSize = 15;
+const colors = '#9E8472';
 const popupPaddingX = 20;
 const popupPaddingY = 40;
 let dataset;
 let allowMovement = true;
 let hoveredDot = null;
 let currentYearIndex = 0;
+
+// Dynamically create and append the banner element
+const banner = document.createElement('div');
+
 
 function preload() {
     console.log('Attempting to load CSV file...');
@@ -16,18 +20,31 @@ function preload() {
     });
   }
   
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  
   // Populate dots array with data from CSV
-  for (let i = 0; i < numDots; i++) {
+  for (let i = 100; i < numDots; i++) {
     let dot = createDot();
+    dot.y += 50; // Add a padding of 50 pixels from the top
     dots.push(dot);
   }
+
+  // Dynamically create and append the banner element
+  const banner = document.createElement('div');
+  banner.id = 'banner';
+  document.body.appendChild(banner);
+
+  // Create and set up the title element
+  const title = document.createElement('h1');
+  title.innerText = 'Rising Navigating New Realities: Showing Children Displaced by Climate Change';
+  banner.appendChild(title);
 }
 
 function draw() {
     console.log('Drawing...');
-    background('#00072d');
+    background('#4C392D');
 
  
 
@@ -60,14 +77,18 @@ function draw() {
 function createDot() {
   let row = int(random(dataset.getRowCount()));
   let x = dataset.getNum(row, 'Year');
-  let y = dataset.getNum(row, 'Disaster Internal Displacements (Raw)');
+  let y = dataset.getNum(row, 'Disaster Internal Displacements (Raw)')+50;
   let year = dataset.getNum(row, 'Year');
   let raw = dataset.getNum(row, 'Disaster Internal Displacements (Raw)');
   let label = dataset.getString(row, 'Hazard Type');
+  let eventName = dataset.getString(row, 'Event Name'); // Retrieve event name
+
+  y += 50;
+  
   
   currentYearIndex++;
 
-  console.log('Loaded Dot Data:', { x, y, label }); // Log data for debugging
+  console.log('Loaded Dot Data:', { x, y, label, eventName }); // Log data for debugging
 
   return {
     x: x,
@@ -75,8 +96,9 @@ function createDot() {
     year: year,
     raw: raw,
     speed: random(8,10),
-    color: random(colors),
+    color: '#9E8472',
     label: label,
+    eventName: eventName, // Store event name in the dot object
   };
 }
 
@@ -89,7 +111,7 @@ function moveDot(dot) {
 
     dot.y = random(width);
     dot.x = random(height);
-    dot.color = random(colors);
+    dot.color = '#9E8472';
   }
 }
 
@@ -110,8 +132,8 @@ function displayPopup(dot) {
     stroke(0);
     strokeWeight(1);
     // Add background color, rounded corners, and drop shadow
-    let popupWidth = textWidth(`Children Displaced: ${dot.label}`) + popupPaddingX;
-    let popupHeight = textAscent() * 3 + popupPaddingY;
+    let popupWidth = textWidth(`Event Name: ${dot.eventName}`) + popupPaddingX;
+    let popupHeight = textAscent() * 4 + popupPaddingY;
     let borderRadius = 10;
     let shadowDistance = 0;
   
@@ -131,7 +153,7 @@ function displayPopup(dot) {
   noStroke();
   rect(
     mouseX + 10 - shadowDistance,
-    mouseY - popupHeight + 10 - shadowDistance,
+    mouseY - popupHeight - shadowDistance,
     popupWidth,
     popupHeight,
     borderRadius
@@ -143,11 +165,8 @@ function displayPopup(dot) {
     textAlign(LEFT, TOP);
     textSize(20); // Larger font size for the title
 
- // Display title
-  text(`Incident Details:`, mouseX + 20, mouseY - popupHeight + 20);
-
-  let x = dot.x;
-  let y = dot.y;
+   let x = dot.x;
+   let y = dot.y - 50; // Adjust for the top padding
 
     fill(0);
     noStroke();
@@ -155,7 +174,8 @@ function displayPopup(dot) {
     textSize(16);
   
     // Display additional information
-    text(`Hazard Type: ${dot.label}`, mouseX + 20, mouseY - popupHeight + 50);
-    text(`Year: ${dot.year}`, mouseX + 20, mouseY - popupHeight + 80);
-    text(`Children Displaced: ${dot.raw}`, mouseX + 20, mouseY - popupHeight + 110);
+    text(`Hazard Type: ${dot.label}`, mouseX + 20, mouseY - popupHeight + 20);
+    text(`Event Name: ${dot.eventName}`, mouseX + 20, mouseY - popupHeight + 60); // Added line for event name
+    text(`Year: ${dot.year}`, mouseX + 20, mouseY - popupHeight + 100);
+    text(`Children Displaced: ${dot.raw}`, mouseX + 20, mouseY - popupHeight + 140);
   }
