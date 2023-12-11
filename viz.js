@@ -12,68 +12,73 @@ let currentYearIndex = 0;
 // Dynamically create and append the banner element
 const banner = document.createElement('div');
 
-
 function preload() {
     console.log('Attempting to load CSV file...');
     dataset = loadTable('File/1_Disaster_Displacement_data-Table 1.csv', 'csv', 'header', function() {
-      console.log('CSV file loaded:', dataset.getRowCount(), 'rows');
+        console.log('CSV file loaded:', dataset.getRowCount(), 'rows');
     });
-  }
-  
+}
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
-  
-  // Populate dots array with data from CSV
-  for (let i = 100; i < numDots; i++) {
-    let dot = createDot();
-    dot.y += 50; // Add a padding of 50 pixels from the top
-    dots.push(dot);
-  }
+    createCanvas(windowWidth, windowHeight);
 
-  // Dynamically create and append the banner element
-  const banner = document.createElement('div');
-  banner.id = 'banner';
-  document.body.appendChild(banner);
+    // Populate dots array with data from CSV
+    for (let i = 100; i < numDots; i++) {
+        let dot = createDot();
+        dot.y += 50; // Add a padding of 50 pixels from the top
+        dots.push(dot);
+    }
 
-  // Create and set up the title element
-  const title = document.createElement('h1');
-  title.innerText = 'Rising Navigating New Realities: Showing Children Displaced by Climate Change';
-  banner.appendChild(title);
+    // Dynamically create and append the banner element
+    banner.id = 'banner';
+    document.body.appendChild(banner);
+
+    // Create and set up the title element
+    const title = document.createElement('h1');
+    title.innerText = 'Rising Navigating New Realities: Showing Children Displaced by Climate Change';
+    banner.appendChild(title);
+
+    // Style the banner using CSS
+    banner.style.position = 'fixed';
+    banner.style.top = '0';
+    banner.style.left = '0';
+    banner.style.width = '100%';
+    banner.style.backgroundColor = '#4C392D';
+    banner.style.padding = '20px';
+    banner.style.zIndex = '2'; // Set a higher z-index than the dots
 }
 
 function draw() {
     console.log('Drawing...');
     background('#4C392D');
 
- 
-
     for (let i = 0; i < dots.length; i++) {
-      if (allowMovement) {
-        moveDot(dots[i]);
-      }
-      displayDot(dots[i]);
+        if (allowMovement) {
+            moveDot(dots[i]);
+        }
+        displayDot(dots[i]);
 
         // Check for mouse hover
-  hoveredDot = null; // Reset hoveredDot
-  for (let i = 0; i < dots.length; i++) {
-    if (isMouseOver(dots[i])) {
-      allowMovement = false;
-      hoveredDot = dots[i];
-      break; // Exit the loop when a dot is hovered over
-    }
-  }
-    
-  if (!hoveredDot) {
-    allowMovement = true;
-  }
+        hoveredDot = null; // Reset hoveredDot
+        for (let i = 0; i < dots.length; i++) {
+            if (isMouseOver(dots[i])) {
+                allowMovement = false;
+                hoveredDot = dots[i];
+                break; // Exit the loop when a dot is hovered over
+            }
+        }
 
-  // Display popup if a dot is hovered over
-  if (hoveredDot) {
-    displayPopup(hoveredDot);
+        if (!hoveredDot) {
+            allowMovement = true;
+        }
+
+        // Display popup if a dot is hovered over
+        if (hoveredDot) {
+            displayPopup(hoveredDot);
+        }
     }
-  }
-} 
+}
+
 function createDot() {
   let row = int(random(dataset.getRowCount()));
   let x = dataset.getNum(row, 'Year');
@@ -164,7 +169,7 @@ function displayPopup(dot) {
     noStroke();
     textAlign(LEFT, TOP);
     textSize(20); // Larger font size for the title
-
+     
    let x = dot.x;
    let y = dot.y - 50; // Adjust for the top padding
 

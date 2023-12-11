@@ -4,21 +4,21 @@
   left: 0;
   width: 100vw;
   padding: 20px;
-  background-color: #4C392D; /* Choose your banner color */
-  color: #1c0101; /* Choose your text color */
+  background-color: #4C392D;
+  color: #1c0101;
   text-align: center;
-  z-index: 1;
+  z-index: 1; /* Increase z-index to ensure it's above the dots */
 }
 
 #banner h1 {
   margin: 0;
-  font-size: 24px; /* Adjust the font size as needed */
+  font-size: 24px;
   color: #9f5f5f;
 }
 
 #p5-canvas {
   position: relative;
-  z-index: 2;
+  z-index: 2; /* Decrease z-index to ensure it's below the banner */
 }
 
 body {
@@ -27,8 +27,14 @@ body {
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background-color: #4C392D; /* Choose your background color */
+  background-color: #4C392D;
   overflow-y: scroll;
+}
+
+.popup {
+  position: absolute;
+  z-index: 3; /* Set a higher z-index to make sure it appears above everything */
+  /* Additional styles for your pop-up */
 }
 
 #p5-canvas canvas {

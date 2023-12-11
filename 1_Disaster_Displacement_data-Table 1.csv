@@ -1,4 +1,4 @@
-ISO3,Country / Territory,Year,Event Name,Date of Event (start),Disaster Internal Displacements,Disaster Internal Displacements (Raw),Hazard Category,Hazard Type,Hazard Sub Type
+ISO3,Country / Territory,Year,Event Name,Date of Event,Disaster Internal Displacements,Disaster Internal Displacements (Raw),Hazard Category,Hazard Type,Hazard Sub Type
 BRA,Brazil,2008,Brazil: Flood - 30/03/2008,2008-03-30,190000,190000,Weather related,Flood,Flood
 CAF,Central African Republic,2008,Central African Republic: Flood - 01/07/2008,2008-07-01,14000,14000,Weather related,Flood,Flood
 CAN,Canada,2008,Canada: Flood - 04/10/2008,2008-10-04,200,200,Weather related,Flood,Flood
