@@ -3,6 +3,7 @@ let dots = [];
 let allowMovement = true;
 let titleHeight = 50;
 let hoverText = 'Hover here';
+let defaultText = 'Each dot represents an event caused by climate change ranging from 2008 to 2022.<br><br>An average of almost 3.2 million children get displaced every year due to climate change.<br><br>Hover over any dot to get more insights and details on the incident.';
 
 function preload() {
   // Load your CSV file
@@ -17,11 +18,11 @@ function setup() {
   title.style('font-size', '30px');
   title.style('text-align', 'center');
   title.style('color', '#f8fafa');
-  title.style('font-family', 'Lato, sans-serif'); // Set the title color to white
+  title.style('font-family', 'Lato, sans-serif');
   title.position(width / 3, titleHeight / 4);
 
-   // Shuffle the rows of the data
-   shuffleArray(data.rows);
+  // Shuffle the rows of the data
+  shuffleArray(data.rows);
 
   // Create a maximum of 100 dots based on data
   for (let i = 0; i < min(150, data.getRowCount()); i++) {
@@ -30,7 +31,17 @@ function setup() {
     let dot = new Dot(x, y, data.getRow(i));
     dots.push(dot);
   }
+
+  // Create text container for default state
+  let defaultTextContainer = createDiv(defaultText);
+  defaultTextContainer.parent('data-container');
+  defaultTextContainer.style('font-size', '18px');
+  defaultTextContainer.style('text-align', 'left');
+  defaultTextContainer.style('color', '#f8fafa');
+  defaultTextContainer.style('font-family', 'Lato, sans-serif');
+  defaultTextContainer.id('default-text-container');
 }
+
 
 // Function to shuffle an array (Fisher-Yates algorithm)
 function shuffleArray(array) {
@@ -56,12 +67,18 @@ function mouseMoved() {
   allowMovement = true; // Allow movement by default
 
   // Check if the mouse is over a dot
+  let hovering = false;
   for (let dot of dots) {
     dot.checkHover();
     if (dot.hovered) {
       allowMovement = false; // Stop movement when hovering
+      hovering = true;
     }
   }
+
+  // Show/hide default text based on hover state
+  let defaultTextContainer = select('#default-text-container');
+  defaultTextContainer.style('display', hovering ? 'none' : 'block');
 }
 
 class Dot {
@@ -100,8 +117,8 @@ class Dot {
       this.textContainer.parent('data-container');
       this.textContainer.style('font-size', '18px');
       this.textContainer.style('text-align', 'left');
-      this.textContainer.style('color', '#f8fafa'); 
-      this.textContainer.style('font-family', 'Lato, sans-serif');// Change the text color to red
+      this.textContainer.style('color', '#f8fafa');
+      this.textContainer.style('font-family', 'Lato, sans-serif');
 
       for (let column in this.rowData.obj) {
         let p = createP(`${column}: ${this.rowData.getString(column)}`);
