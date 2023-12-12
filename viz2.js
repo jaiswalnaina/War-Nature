@@ -20,12 +20,23 @@ function setup() {
   title.style('font-family', 'Lato, sans-serif'); // Set the title color to white
   title.position(width / 3, titleHeight / 4);
 
+   // Shuffle the rows of the data
+   shuffleArray(data.rows);
+
   // Create a maximum of 100 dots based on data
   for (let i = 0; i < min(150, data.getRowCount()); i++) {
     let x = random(width * 6 / 6);
     let y = map(i, 0, min(150, data.getRowCount()), titleHeight * 2, height);
     let dot = new Dot(x, y, data.getRow(i));
     dots.push(dot);
+  }
+}
+
+// Function to shuffle an array (Fisher-Yates algorithm)
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = floor(random(i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
   }
 }
 
